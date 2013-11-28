@@ -345,6 +345,7 @@ FUNCTION Conta_411(aParam1,aParam2,aParam3)
 			   lPorcen,lStdAcu,lOrdena,lPrnNum,;
 			   FilePrn,nOpcPrn,@nHanXml)
 	    OTHERWISE
+
 		 EstaEst00(lShared,cNomEmp,cCodEmp,cNomSis,cAnoUsr,cNomUsr,;
 			   nNroPer,cMaeAct,cJorTxt,nNroIni,nNroFin,cGruFin,;
 			   lPorcen,lStdAcu,lOrdena,lPrnNum,;

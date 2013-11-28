@@ -235,6 +235,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
        LOCAL cCodigoTma := ''               // C¢digo de la Materia
 *>>>>FIN DECLARACION DE VARIABLES
 
+
 *>>>>LOCALIZACION DE CAMPOS DE AREAS,ACUMULADOS,PROMEDIOS Y MATERIAS
        SELECT NOT
        aStrNot := DBSTRUCT()
@@ -581,8 +582,13 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 	       ENDIF
 
-	       REPL &cRecAre WITH;
-		    STUFF(&cRecAre,nNroPer*4-3,4,nAreRec)
+	       IF nNroPer == 1 .OR. nNroPer == 3 // Se descarta en estos periodos
+		  REPL &cRecAre WITH;
+		       STUFF(&cRecAre,nNroPer*4-3,4,SPACE(04))
+	       ELSE
+		  REPL &cRecAre WITH;
+		       STUFF(&cRecAre,nNroPer*4-3,4,nAreRec)
+	       ENDIF
 
 	       REPL &cCamAcA WITH;
 		    STUFF(&cCamAcA,nNroPer*5-4,5,nAcuAre)
