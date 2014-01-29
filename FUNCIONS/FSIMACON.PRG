@@ -88,6 +88,7 @@ FUNCTION CreaSimCon(lShared,PathCon,fSimaCo,lIntUno,fNtxCon,aStrDbf)
        AADD(aDbfStr,{'nNroFacCon','Numeric'  ,09,0}) // N£mero Consecutivo de la Factura
        AADD(aDbfStr,{'cTitNroCon','Character',40,0}) // T¡tulo para el n£mero de la factura. Ej: Recibo No. FACTURA No.
        AADD(aDbfStr,{'cCenCosCon','Character',04,0}) // Centro de Costos
+       AADD(aDbfStr,{'cSubCenCon','Character',04,0}) // Sub Centro de Costos
        AADD(aDbfStr,{'nPrnBolPrn','Numeric'  ,04,0}) // C¢digo de la Impresora para Boletines
        AADD(aDbfStr,{'nPrnCerPrn','Numeric'  ,04,0}) // C¢digo de la Impresora para certificados
        AADD(aDbfStr,{'nNroCerCon','Numeric'  ,16,0}) // N£mero de Certificados
@@ -796,6 +797,22 @@ FUNCTION oDefSimCon(lShared,cAnoUsr,nFilSup,nColSup,nFilInf,;
        ENDIF
 
        IF lBrwCar
+	  oColumn  := TBCOLUMNNEW('CENTRO;DE COSTO', {||CON->cCenCosCon})
+	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
+			    {'FIELD','cCenCosCon'},{'PICTURE','9999'}}
+	  oBrowse:ADDCOLUMN(oColumn)
+       ENDIF
+     *ÀDefinici¢n Columna
+
+       IF lBrwCar
+	  oColumn  := TBCOLUMNNEW('SUB CENTRO;DE COSTO', {||CON->cSubCenCon})
+	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
+			    {'FIELD','cSubCenCon'},{'PICTURE','9999'}}
+	  oBrowse:ADDCOLUMN(oColumn)
+       ENDIF
+     *ÀDefinici¢n Columna
+
+       IF lBrwCar
 	  oColumn	:= TBCOLUMNNEW('HAY NUMERO;DE FACTURA',;
 				      {||CON->lHayNroCon})
 	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
@@ -824,13 +841,7 @@ FUNCTION oDefSimCon(lShared,cAnoUsr,nFilSup,nColSup,nFilInf,;
        ENDIF
      *ÀDefinici¢n Columna
 
-       IF lBrwCar
-	  oColumn  := TBCOLUMNNEW('CENTRO;DE COSTO', {||CON->cCenCosCon})
-	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
-			    {'FIELD','cCenCosCon'},{'PICTURE','9999'}}
-	  oBrowse:ADDCOLUMN(oColumn)
-       ENDIF
-     *ÀDefinici¢n Columna
+
 
        IF lBrwCon
 	  oColumn := TBCOLUMNNEW('HOJA DEL;OBSERVADOR',;
