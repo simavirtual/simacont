@@ -273,6 +273,9 @@ OBJETIVOS:
 
        LOCAL FileSti := 'EstaIndi'+ExtFile
      *ÀArchivo de Estadisticas de indicadores
+
+       LOCAL fColPrc := 'COLEPROC'+ExtFile         // Ej: COLEPROC.DAT
+     *ÀArchivo de Colegios de Procedencia.
 *>>>>FIN DECLARACION DE ARCHIVOS DEL SISTEMA
 
 *>>>>DECLARACION DE ARCHIVOS COMPARTIDOS

@@ -378,8 +378,8 @@ FUNCTION RevisarDbf(aP1,;
 	    !FILE(cPatSis+'\'+FilePro+cAnoSis+ExtFile) .AND.;
 	    !FILE(cPatSis+'\'+FileOrg) .AND.;
 	    !FILE(cPatSis+'\'+fCorBol) .AND.;
-	    !FILE(cPatSis+'\'+fTipUsr)
-
+	    !FILE(cPatSis+'\'+fTipUsr) .AND.;
+	    !FILE(cPatSis+'\'+fColPrc)
 
 	    RESTSCREEN(0,0,24,79,cSavPan)
 	    CreaDbfAno(lShared,nModCry,cPatSis,cAnoUsr,;
@@ -488,6 +488,12 @@ FUNCTION RevisarDbf(aP1,;
 	      IF !FILE(cPatSis+'\'+fTipUsr)
 		 RESTSCREEN(0,0,24,79,cSavPan)
 		 RecuDbfTus(lShared,nModCry,cPatSis,fTipUsr)
+	      ENDIF
+
+	      IF !FILE(cPatSis+'\'+fColPrc)
+		 RecuDbfCol(lShared,nModCry,cPatSis,fColPrc)
+	      ELSE
+		 nActStrCol(lShared,nModCry,cPatSis,fColPrc)
 	      ENDIF
 ************FIN RECUPERACION DE ESTRUCTURAS COMPARTIDAS
 
@@ -1063,6 +1069,9 @@ FUNCTION CreaDbfAno(lShared,nModCry,cPatSis,cAnoUsr,;
 
        CreaDbfTus(lShared,nModCry,cPatSis,fTipUsr)
        Termometro(95)
+
+       CreaDbfCol(lShared,nModCry,cPatSis,fColPrc)
+       Termometro(100)
 
        RESTSCREEN(0,0,24,79,cSavPan)
        RETURN NIL

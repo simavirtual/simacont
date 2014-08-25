@@ -246,7 +246,7 @@ FUNCTION CreaDbfAlu(PathAlu,FileAlu,cNalias,fNtxAlu,aStrDbf)
        AADD(aDbfAlu,{"cPazSdoEst","Character",020,0}) // Paz y Salvo. Espacio en Blanco =>SI Paz y Salvo. Diferente de Espacio =>NO Paz y Salvo
        AADD(aDbfAlu,{"cObsLibEst","Character",500,0}) // Observaci¢n para el libro.
        AADD(aDbfAlu,{"cObsRetEst","Character",100,0}) // Observaci¢n del Retiro.
-       AADD(aDbfAlu,{"cCole13Est","Character",084,0}) // Procedencia de Preescolar
+       AADD(aDbfAlu,{"cCole13Est","Character",084,0}) // Procedencia de Caminadores
        AADD(aDbfAlu,{"cCole00Est","Character",084,0}) // Procedencia de Transici¢n
        AADD(aDbfAlu,{"cCole01Est","Character",084,0}) // Procedencia de Primero
        AADD(aDbfAlu,{"cCole02Est","Character",084,0}) // Procedencia de Segundo
@@ -259,7 +259,10 @@ FUNCTION CreaDbfAlu(PathAlu,FileAlu,cNalias,fNtxAlu,aStrDbf)
        AADD(aDbfAlu,{"cCole09Est","Character",084,0}) // Procedencia de Noveno
        AADD(aDbfAlu,{"cCole10Est","Character",084,0}) // Procedencia de D‚cimo
        AADD(aDbfAlu,{"cCole11Est","Character",084,0}) // Procedencia de Und‚cimo
-       AADD(aDbfAlu,{"cCole12Est","Character",084,0}) // Procedencia de DuoD‚cimo
+       AADD(aDbfAlu,{"cCole12Est","Character",084,0}) // Procedencia de Maternales
+       AADD(aDbfAlu,{"cCole14Est","Character",084,0}) // Procedencia de Parvulos
+       AADD(aDbfAlu,{"cCole15Est","Character",084,0}) // Procedencia de Pre-Jardin
+       AADD(aDbfAlu,{"cCole16Est","Character",084,0}) // Procedencia de Jardin
        AADD(aDbfAlu,{"cVotEscEst","Character",030,0}) // Voto Escolar del Estudiante
        AADD(aDbfAlu,{"cCodigoMat","Character",004,0}) // C¢digo de la materia del area Especializada
        AADD(aDbfAlu,{"cAnoEstMae","Character",068,0}) // A¤os en que estudio en el colegio
