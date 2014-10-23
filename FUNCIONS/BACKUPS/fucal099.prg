@@ -235,6 +235,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
        LOCAL cCodigoTma := ''               // C¢digo de la Materia
 *>>>>FIN DECLARACION DE VARIABLES
 
+
 *>>>>LOCALIZACION DE CAMPOS DE AREAS,ACUMULADOS,PROMEDIOS Y MATERIAS
        SELECT NOT
        aStrNot := DBSTRUCT()
@@ -565,10 +566,8 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 	    cRecAre := SUBS(cNotAre,1,12)+'Rec'
 	  *ÀNombre de los campos
 
-
 	    SELECT NOT
 	    IF NOT->(lRegLock(lShared,.F.))
-
 
 	       REPL &cCamAre WITH;
 		    STUFF(&cCamAre,nNroPer*4-3,4,nDefAre)
@@ -583,8 +582,13 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 	       ENDIF
 
-	       REPL &cRecAre WITH;
-		    STUFF(&cRecAre,nNroPer*4-3,4,nAreRec)
+	       IF nNroPer == 1 .OR. nNroPer == 3 // Se descarta en estos periodos
+		  REPL &cRecAre WITH;
+		       STUFF(&cRecAre,nNroPer*4-3,4,SPACE(04))
+	       ELSE
+		  REPL &cRecAre WITH;
+		       STUFF(&cRecAre,nNroPer*4-3,4,nAreRec)
+	       ENDIF
 
 	       REPL &cCamAcA WITH;
 		    STUFF(&cCamAcA,nNroPer*5-4,5,nAcuAre)
@@ -593,7 +597,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 		    STUFF(&cCamPro,nNroPer*4-3,4,nProAre)
 
 	       IF nNroPer == 5
-		  nDefAre := cDefAre099(&cNotAre,&cRecAre,nNroPer)
+//		  nDefAre := cDefAre099(&cNotAre,&cRecAre,nNroPer) // Pendiente revisar todos los periodos
 		  REPL &cNotAre WITH;
 		       STUFF(&cNotAre,nNroPer*4-3,4,nDefAre)
 	       ELSE

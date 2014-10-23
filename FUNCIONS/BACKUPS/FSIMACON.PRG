@@ -58,6 +58,7 @@ FUNCTION CreaSimCon(lShared,PathCon,fSimaCo,lIntUno,fNtxCon,aStrDbf)
 *>>>>DECLARACION DE VARIABLES
        AADD(aDbfStr,{'cCodEmpCon','Character',03,0}) // C¢digo de la Empresa
        AADD(aDbfStr,{'nCodEmpCon','Numeric'  ,02,0}) // C¢digo de la Empresa
+       AADD(aDbfStr,{'cEmpMvtCon','Character',03,0}) // C¢digo de la Empresa para la contabilida
        AADD(aDbfStr,{'cNomEmpCon','Character',40,0}) // Nombre de la Empresa
        AADD(aDbfStr,{'cCiuEmpCon','Character',20,0}) // Ciudad de la Empresa
        AADD(aDbfStr,{'cNroNitCon','Character',14,0}) // N£mero del Nit
@@ -82,10 +83,12 @@ FUNCTION CreaSimCon(lShared,PathCon,fSimaCo,lIntUno,fNtxCon,aStrDbf)
        AADD(aDbfStr,{'nOpcCerCon','Numeric  ',02,0}) // Opci¢n de impresi¢n de los Certificados
        AADD(aDbfStr,{'nAnoIniCon','Numeric  ',04,0}) // A¤o Inicial habilitado para Certificados
        AADD(aDbfStr,{'nAnoFinCon','Numeric  ',04,0}) // A¤o Final habilitado para Certificados
+       AADD(aDbfStr,{"nEmpMvtCon","Numeric"  ,02,0}) // Empresa movimientos contables
        AADD(aDbfStr,{'lHayNroCon','Logical'  ,01,0}) // .T. Controlar N£mero Consecutivo
        AADD(aDbfStr,{'nNroFacCon','Numeric'  ,09,0}) // N£mero Consecutivo de la Factura
        AADD(aDbfStr,{'cTitNroCon','Character',40,0}) // T¡tulo para el n£mero de la factura. Ej: Recibo No. FACTURA No.
        AADD(aDbfStr,{'cCenCosCon','Character',04,0}) // Centro de Costos
+       AADD(aDbfStr,{'cSubCenCon','Character',04,0}) // Sub Centro de Costos
        AADD(aDbfStr,{'nPrnBolPrn','Numeric'  ,04,0}) // C¢digo de la Impresora para Boletines
        AADD(aDbfStr,{'nPrnCerPrn','Numeric'  ,04,0}) // C¢digo de la Impresora para certificados
        AADD(aDbfStr,{'nNroCerCon','Numeric'  ,16,0}) // N£mero de Certificados
@@ -501,6 +504,7 @@ FUNCTION oDefSimCon(lShared,cAnoUsr,nFilSup,nColSup,nFilInf,;
        oBrowse:ADDCOLUMN(oColumn)
      *ÀDefinici¢n Columna
 
+
        oColumn	     := TBCOLUMNNEW('NOMBRE DE;LA EMPRESA', {||CON->cNomEmpCon})
        oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
 			 {'FIELD','cNomEmpCon'}, {'PICTURE','@!'}}
@@ -777,6 +781,38 @@ FUNCTION oDefSimCon(lShared,cAnoUsr,nFilSup,nColSup,nFilInf,;
      *ÀDefinici¢n Columna
 
        IF lBrwCar
+	  oColumn  := TBCOLUMNNEW('EMPRESA MVT;CONTABLE', {||CON->nEmpMvtCon})
+	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
+			    {'FIELD','nEmpMvtCon'},{'PICTURE','@!'}}
+	  oBrowse:ADDCOLUMN(oColumn)
+       ENDIF
+     *ÀDefinici¢n Columna
+
+       IF lBrwCar
+	  oColumn	     := TBCOLUMNNEW('CODIGO DE LA;EMPRESA MVT', {||CON->cEmpMvtCon})
+	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
+			    {'FIELD','cEmpMvtCon'}, {'PICTURE','@!'}}
+	  oBrowse:ADDCOLUMN(oColumn)
+	*ÀDefinici¢n Columna
+       ENDIF
+
+       IF lBrwCar
+	  oColumn  := TBCOLUMNNEW('CENTRO;DE COSTO', {||CON->cCenCosCon})
+	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
+			    {'FIELD','cCenCosCon'},{'PICTURE','9999'}}
+	  oBrowse:ADDCOLUMN(oColumn)
+       ENDIF
+     *ÀDefinici¢n Columna
+
+       IF lBrwCar
+	  oColumn  := TBCOLUMNNEW('SUB CENTRO;DE COSTO', {||CON->cSubCenCon})
+	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
+			    {'FIELD','cSubCenCon'},{'PICTURE','9999'}}
+	  oBrowse:ADDCOLUMN(oColumn)
+       ENDIF
+     *ÀDefinici¢n Columna
+
+       IF lBrwCar
 	  oColumn	:= TBCOLUMNNEW('HAY NUMERO;DE FACTURA',;
 				      {||CON->lHayNroCon})
 	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
@@ -805,13 +841,7 @@ FUNCTION oDefSimCon(lShared,cAnoUsr,nFilSup,nColSup,nFilInf,;
        ENDIF
      *ÀDefinici¢n Columna
 
-       IF lBrwCar
-	  oColumn  := TBCOLUMNNEW('CENTRO;DE COSTO', {||CON->cCenCosCon})
-	  oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
-			    {'FIELD','cCenCosCon'},{'PICTURE','9999'}}
-	  oBrowse:ADDCOLUMN(oColumn)
-       ENDIF
-     *ÀDefinici¢n Columna
+
 
        IF lBrwCon
 	  oColumn := TBCOLUMNNEW('HOJA DEL;OBSERVADOR',;

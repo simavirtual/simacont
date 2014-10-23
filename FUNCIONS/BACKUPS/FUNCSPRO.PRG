@@ -2186,8 +2186,8 @@ FUNCTION MenuOtrPro(lShared,lNovell,cNomSis,cEmpPal,cNitEmp,cNomEmp,cNomDpt,;
 		      cJornad,oBrowse)
 
        CASE nNroOpc == 7
-	    PrnProfHor(lShared,cNomEmp,cNomSis,cAnoUsr,cPatSis,cIntUno,cMaeAct,;
-		       cJorTxt)
+	    PrnProfHor(lShared,cNomEmp,cNomSis,cNomUsr,cAnoUsr,cPatSis,;
+		       cIntUno,cMaeAct,cJorTxt)
 
        CASE nNroOpc == 8
 	    ProfCarga(lShared,lNovell,cNomSis,cEmpPal,cNitEmp,cNomEmp,cNomDpt,;
@@ -3059,13 +3059,14 @@ SINTAXIS:
 *                              PROGRAMA                                  *
 *------------------------------------------------------------------------*/
 
-FUNCTION PrnProfHor(lShared,cNomEmp,cNomSis,cAnoUsr,cPatSis,cIntUno,;
+FUNCTION PrnProfHor(lShared,cNomEmp,cNomSis,cNomUsr,cAnoUsr,cPatSis,cIntUno,;
 		    cMaeAct,cJorTxt)
 
 *>>>>PARAMETROS DE LA FUNCION
 /*     lShared                              // .T. Sistema Compartido
        cNomEmp                              // Nombre de la Empresa
        cNomSis                              // Nombre del Sistema
+       cNomUsr                              // Nombre del Usuario
        cAnoUsr                              // A¤o del usuario
        cPatSis                              // Path del sistema
        cIntUno                              // Primera Integraci¢n
@@ -3079,6 +3080,8 @@ FUNCTION PrnProfHor(lShared,cNomEmp,cNomSis,cAnoUsr,cPatSis,cIntUno,;
        LOCAL cAnoSis := SUBS(cAnoUsr,3,2)   // A¤o del sistema
        LOCAL lHayErr := .F.                 // .T. Hay Error
      *ÀVariables generales
+
+       LOCAL nOpcPrn := 0                   // Opci¢n de Impresi¢n
 
        LOCAL nNroPag := 1                   // N£mero de p gina
        LOCAL lTamAnc := .F.                 // .T. Tama¤o Ancho
@@ -3160,8 +3163,9 @@ FUNCTION PrnProfHor(lShared,cNomEmp,cNomSis,cAnoUsr,cPatSis,cIntUno,;
 		   'ASIGNACION ACADEMICA',;
 		   nNroPag++,;
 		   cTotPagina(nTotReg),lTamAnc}
-       cCodIni := DRAFT_ON+PICA+CONDEN_ON
-       cCodFin := NEGRA_OF+DOBGOL_OF
+
+       cCodIni := PCL({'DraftOn','Pica','CondenOn'})
+       cCodFin := PCL({'NegraOf','DobGolOf'})
 *>>>>FIN DEFINCION DEL ENCABEZADO
 
 *>>>>ENCABEZADOS DE COLUMNA
@@ -3206,10 +3210,16 @@ FUNCTION PrnProfHor(lShared,cNomEmp,cNomSis,cAnoUsr,cPatSis,cIntUno,;
 *>>>>FIN SELECION DEL TIPO DE IMPRESION
 
 *>>>>ACTIVACION DE LA IMPRESORA
-       IF !Printer_on()
-	  RETURN NIL
+       IF SCO->lPrnArcCon
+	  SET DEVICE TO PRINT
+       ELSE
+	  FilePrn := 'cargapro'
+	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,SCO->cOpcPrnCon,.F.,,,PathDoc)
+	  IF EMPTY(nOpcPrn)
+	     RETURN NIL
+	  ENDIF
        ENDIF
-       @ PROW(),00 SAY INICIALIZA
+       SendCodes(PCL('Reset'))
        EVAL(bCabeza)
       *Impresi¢n del Encabezado
 *>>>>FIN ACTIVACION DE LA IMPRESORA
@@ -3366,6 +3376,8 @@ FUNCTION PrnProfHor(lShared,cNomEmp,cNomSis,cAnoUsr,cPatSis,cIntUno,;
        DerechosPrn(cNomSis,cNomEmp,nLenPrn)
        @ PROW()-PROW(),00 SAY ' '
       *Saca la ultima linea
+
+       VerPrn(nOpcPrn,FilePrn)
 
        SET DEVICE TO SCREEN
        RETURN NIL
