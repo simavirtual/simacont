@@ -523,7 +523,7 @@ FUNCTION oDefSimCon(lShared,cAnoUsr,nFilSup,nColSup,nFilInf,;
        oBrowse:ADDCOLUMN(oColumn)
      *ÀDefinici¢n Columna
 
-       oColumn	     := TBCOLUMNNEW('CODIGO EAN-13;DE LA EMPRESA', {||CON->cCodEanCon})
+       oColumn	     := TBCOLUMNNEW('CODIGO EAN-13;PARA EL RECAUDO', {||CON->cCodEanCon})
        oColumn:Cargo := {{'MODI',.T.},{'ALIAS','CON'},;
 			 {'FIELD','cCodEanCon'}, {'PICTURE','@!'}}
        oBrowse:ADDCOLUMN(oColumn)
