@@ -226,7 +226,8 @@ FUNCTION Conta_317(aParam1,aParam2,aParam3)
        IF SCO->lPrnArcCon
 	  SET DEVICE TO PRINT
        ELSE
-	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,SCO->cOpcPrnCon,.F.)
+	  FilePrn := 'rjuicios'
+	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,SCO->cOpcPrnCon,.F.,,,PathDoc)
 	  IF EMPTY(nOpcPrn)
 	     SET FILTER TO
 	     CloseAll()
@@ -344,7 +345,6 @@ ENDIF
 		 ENDIF
 *--------------FIN VISUALIZACION DE LA CARGA
 
-
 *--------------RESUMEN DE JUICIOS VALORATIVOS
 		 cCodMat := SUBS(CAP->cCodigoCar,1,4)
 
@@ -359,7 +359,7 @@ ENDIF
 		      ELSE
 			 JuiValNoP(lShared,cNomEmp,cNomSis,cNomUsr,cAnoUsr,;
 				   cNombreTpr,SUBS(CAP->cCodigoCar,5,4),;
-				   MAT->cNombreMat,cMaeAct,cJorTxt,cCodMat,;
+				   CAP->cNombreMat,cMaeAct,cJorTxt,cCodMat,;
 				   PathUno,cPatSis,lNotJvf)
 		      ENDIF
 
@@ -374,7 +374,7 @@ ENDIF
 		      ELSE
 			 JuiValNoP99(lShared,cNomEmp,cNomSis,cNomUsr,cAnoUsr,;
 				     cNombreTpr,SUBS(CAP->cCodigoCar,5,4),;
-				     MAT->cNombreMat,cMaeAct,cJorTxt,cCodMat,;
+				     CAP->cNombreMat,cMaeAct,cJorTxt,cCodMat,;
 				     PathUno,cPatSis,lNotJvf)
 		      ENDIF
 

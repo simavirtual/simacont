@@ -160,8 +160,6 @@ FUNCTION Conta_502(aP1,aP2,aP3)
        nParameSet(aP1,'cMaeAct',cMaeAct)
 *>>>>FIN SELECCION DEL NIVEL
 
-wait 'paso'
-
 *>>>>AREAS DE TRABAJO
        aUseDbf := {}
        AADD(aUseDbf,{.T.,PathSis+'\'+fSimaCo,'SCO',NIL,lShared,nModCry})

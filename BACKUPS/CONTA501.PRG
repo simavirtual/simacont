@@ -119,10 +119,12 @@ FUNCTION Conta_501(aParam1,aParam2,aParam3)
 *>>>>DECLARCION Y EJECUCION DEL MENU
        cSavPan := SAVESCREEN(0,0,24,79)
        aMenus := {'1<GRABACION     >',;
-		  '2<RECUPERACIONES>'}
+		  '2<RECUPERACIONES>',;
+		  '3<POR PROFESOR  >'}
 
        aAyuda := {'Permite la grabaci¢n de las Recuperaciones.',;
-		  'Permite Consultar e imprimir las Recuperaciones'}
+		  'Permite Consultar e imprimir las Recuperaciones',;
+		  'Permite Imprimir las Recuperaciones por profesor'}
 *>>>>FIN DECLARCION Y EJECUCION DEL MENU
 
 *>>>>ANALISIS DE OPCION ESCOGIDA
@@ -152,16 +154,19 @@ FUNCTION Conta_501(aParam1,aParam2,aParam3)
 	       Conta_512(aParam1,aParam2,aParam3)
 	      *Relaci¢n de habilitantes
 */
-
 	  CASE nNroOpc == 3
+	       Cont_513(aParam1,aParam2,aParam3)
+	      *Recuperaciones Semetrales - La Salle 170
+
+	  CASE nNroOpc == 4
 	       Conta_513(aParam1,aParam2,aParam3)
 	      *Acta General de Habilitantes
 
-	  CASE nNroOpc == 4
+	  CASE nNroOpc == 5
 	       Conta_514(aParam1,aParam2,aParam3)
 	      *Ordendes de habilitaci¢n
 
-	  CASE nNroOpc == 5
+	  CASE nNroOpc == 6
 	       Conta_515(aParam1,aParam2,aParam3)
 	      *Libro de habilitaciones
 

@@ -979,7 +979,6 @@ SET DEVICE TO PRINT
 *>>>>IMPRESION DE LAS ESTADISTICAS TOTALES
        IF lPrnNum
 
-
 	  aTitPrn[1] := ''
 	  aTitPrn[2] := 'TOTALES'
 
@@ -998,10 +997,12 @@ SET DEVICE TO PRINT
 		    nProMat := aTotNot[k]/aNroEst[k]
 		 aTotNot[k] := STR(nProMat,4,1)
 
+		 IF SUBS(aTitPrn[k],1,2) == 'A.'
 		    nTotNot += nProMat
 		    IF nProMat > 0
 		       nNroMat++
 		    ENDIF
+		 ENDIF
 
 	      ELSE
 		 aTotNot[k] := ''
@@ -1014,7 +1015,6 @@ SET DEVICE TO PRINT
 	  AADD(aTotNot,STR(nProGru,4,1))
 
 	  cTxtPrn := cRegPrint(aTotNot,aNroCol)
-
 	  lPrnReg(01,00,cTxtPrn,bPagina,bDerAut,bCabeza)
 
        ELSE

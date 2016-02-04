@@ -171,7 +171,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 *>>>>FIN DESCRIPCION DE PARAMETROS
 
 *>>>>DECLARACION DE VARIABLES
-       LOCAL   i,j,y := 0                   // Contadores
+       LOCAL i,j,y,n := 0                   // Contadores
 
        LOCAL aStrNot := {}                  // Estructura de las notas
        LOCAL aCamMat := {}                  // Campos de las materias
@@ -489,6 +489,56 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 *:::::::::::::::::::GRABACION DEL ACUMULADO DE LA MATERIA
 		      SELECT NOT
 		      IF NOT->(lRegLock(lShared,.F.))
+
+			 IF nNroPer == 3
+
+				  n := 0
+			    nAcuMat := 0
+
+			    cNotRec := SUBS(&cCamNotRec,(nNroPer-1)*4-3,4)
+
+			    IF VAL(cNotRec) > 0
+
+				     n := 2
+			       nAcuMat := VAL(cNotRec) * n
+
+			       IF VAL(SUBS(&cCamNotDef,nNroPer*4-3,4)) > 0
+
+				  nAcuMat += VAL(SUBS(&cCamNotDef,nNroPer*4-3,4))
+					n := n+1
+			       ENDIF
+			       nAcuMat := IF(nAcuMat>0,nAcuMat/n,0)
+
+
+			    ELSE
+
+			       IF VAL(SUBS(&cCamNotAcM,(nNroPer-1)*5-4,5)) > 0
+					n := 2
+				  nAcuMat := VAL(SUBS(&cCamNotAcM,(nNroPer-1)*5-4,5)) * 2
+
+			       ENDIF
+
+			       IF VAL(SUBS(&cCamNotDef,nNroPer*4-3,4)) > 0
+
+				  nAcuMat += VAL(SUBS(&cCamNotDef,nNroPer*4-3,4))
+					n := n+1
+			       ENDIF
+
+			       nAcuMat := IF(nAcuMat>0,nAcuMat/n,0)
+
+			    ENDIF
+
+
+			    nAcuMat := STR(nAcuMat,4,1)
+			  *Aproxima a una cifra.
+
+			    cNotFin := nAcuMat
+
+			    nAcuMat := VAL(nAcuMat)
+
+			 ENDIF
+		       *ÀCalculo Acumulado Tercer Periodo.
+* Falta revisar nota del 5 periodo y Calculo del area.
 
 
 			 REPL &cCamNotAcM WITH;

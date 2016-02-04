@@ -312,6 +312,8 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 		      cCamNotAcM := aCamMat[j,2]
 		      IF EMPTY(cPorcen)
 
+
+
 *........................RECORRIDO POR PERIODOS
 			   nTotAcu := 0
 			   nAcuMat := 0
@@ -360,7 +362,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 
 			   IF nNroPer == 4
-			      nAcuMat := ROUND(nAcuPe4/nTotPe4,1)
+			      nAcuMat := VAL(cNroAprox(STR(nAcuPe4/nTotPe4,5,2),1))
 			   ENDIF
 
 
@@ -457,7 +459,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 				 ENDCASE
 
-				 cNotFin := ROUND(cNotFin,1)
+				 cNotFin := VAL(cNroAprox(STR(cNotFin,5,2),1))
 
 				 nAreFin += cNotFin
 				 IF cNotFin > 0
@@ -540,7 +542,6 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 		       *ÀCalculo Acumulado Tercer Periodo.
 * Falta revisar nota del 5 periodo y Calculo del area.
 
-
 			 REPL &cCamNotAcM WITH;
 			      STUFF(&cCamNotAcM,nNroPer*5-4,5,;
 					     STR(nAcuMat,5,2))
@@ -575,8 +576,8 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 	    ENDIF
 
 	    IF nNroPer == 4
-	       nDefFin := ROUND(nAreFin/nMatFin,1)
-	       nRecFin := ROUND(nAreFin/nMatFin,1)
+	       nDefFin := VAL(cNroAprox(STR(nAreFin/nMatFin,5,2),1))
+	       nRecFin := VAL(cNroAprox(STR(nAreFin/nMatFin,5,2),1))
 	       cFinal  := STR(nDefFin,4,1)
 	    ENDIF
 **********FIN NOTA DEL AREA POR PROMEDIO

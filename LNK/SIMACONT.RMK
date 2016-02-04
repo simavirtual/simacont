@@ -103,6 +103,7 @@
 "$(OBJDIR)\conta501.obj" : "$(SISPRG)\conta501.prg"
 "$(OBJDIR)\conta511.obj" : "$(SISPRG)\conta511.prg"
 "$(OBJDIR)\conta512.obj" : "$(SISPRG)\conta512.prg"
+"$(OBJDIR)\cont513.obj" : "$(SISPRG)\cont513.prg"
 "$(OBJDIR)\conta513.obj" : "$(SISPRG)\conta513.prg"
 "$(OBJDIR)\conta514.obj" : "$(SISPRG)\conta514.prg"
 "$(OBJDIR)\conta515.obj" : "$(SISPRG)\conta515.prg"

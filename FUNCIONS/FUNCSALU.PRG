@@ -122,6 +122,12 @@ FUNCTION CreaDbfAlu(PathAlu,FileAlu,cNalias,fNtxAlu,aStrDbf)
        AADD(aDbfAlu,{"cCodFamEst","Character",060,0}) // C¢digo de Estudiantes de los familiares
      *ÀDatos del Estudiante
 
+       AADD(aDbfAlu,{"cViveCoEst","Character",40,0}) // *Estudiante vive con.
+       AADD(aDbfAlu,{"nNroHerEst","Numeric"  ,02,0}) // *N£mero de Hermanos.
+       AADD(aDbfAlu,{"cHerGruEst","Character",40,0}) // *Grupo de los Hermanos
+       AADD(aDbfAlu,{"cLocaliEst","Character",30,0}) // *Localidad.
+       AADD(aDbfAlu,{"cZonaDiEst","Character",30,0}) // *Zona de la Direcci¢n.
+
        AADD(aDbfAlu,{"nTotFacEst","Numeric",12,2})    // Total Facturado
        AADD(aDbfAlu,{"nTotPagEst","Numeric",12,2})    // Total Pagado
 
