@@ -75,6 +75,7 @@ FUNCTION SCO_25400(aP1,aP2,aP3)
 
 *>>>>DECLARACION PARAMETROS ESPECIFICOS
        LOCAL aArchvo := xPrm(aP3,'aArchvo') // Archivos para Uso
+       LOCAL PathDoc := xPrm(aP3,'PathDoc') // Path de Documentos del sima
        LOCAL cOpcPrn := xPrm(aP3,'cOpcPrn') // Opciones de Impresi¢n.
        LOCAL nCodPrn := xPrm(aP3,'nCodPrn') // C¢digo de Impresi¢n
        LOCAL oBrowse := xPrm(aP3,'oBrowse') // Browse del Archivo
@@ -322,10 +323,10 @@ FUNCTION SCO_25400(aP1,aP2,aP3)
 *>>>>ACTIVACION DE LA IMPRESORA
        IF nNroInf == 0
 	  FilePrn := cCodInf
-	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,cOpcPrn,.T.,.T.)
+	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,cOpcPrn,.T.,.T.,,PathDoc)
        ELSE
 	  FilePrn := cCodInf
-	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,cOpcPrn,.T.,2,bInsIso)
+	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,cOpcPrn,.T.,2,bInsIso,PathDoc)
        ENDIF
        SET DEVICE TO SCREEN
        IF EMPTY(nOpcPrn)

@@ -306,6 +306,7 @@ FUNCTION Conta_254(aP1,aP2,aP3)
 	    oBrowse := NIL
 
 	    AADD(aP3,{'aArchvo',aArchvo})
+	    AADD(aP3,{'PathDoc',PathDoc})
 	    AADD(aP3,{'cOpcPrn',SCO->cOpcPrnCon})
 	    AADD(aP3,{'nCodPrn',SCO->nCodigoPrn})
 	    AADD(aP3,{'oBrowse',oBrowse})

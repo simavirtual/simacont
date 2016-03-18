@@ -235,7 +235,6 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
        LOCAL cCodigoTma := ''               // C¢digo de la Materia
 *>>>>FIN DECLARACION DE VARIABLES
 
-
 *>>>>LOCALIZACION DE CAMPOS DE AREAS,ACUMULADOS,PROMEDIOS Y MATERIAS
        SELECT NOT
        aStrNot := DBSTRUCT()
@@ -275,7 +274,6 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
        ENDFOR
 *>>>>LOCALIZACION DE CAMPOS DE AREAS,ACUMULADOS,PROMEDIOS Y MATERIAS
 
-
 *>>>>RECORRIDO POR AREAS PROMEDIABLES
        cPorcen := TCO->cPorcenTbl
        nPorBim := VAL(SUBS(cPorcen,nNroPer*2-1,2))/100
@@ -300,6 +298,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 *==============ANALISIS SI LA MATERIA VIENE COMO AREA
 		 cCodigoTma := SUBS(aCamMat[j,2],9,4)
+
 		 IF SUBS(cCodigoTma,3,2) == '00'
 		    LOOP
 		 ENDIF
@@ -311,8 +310,6 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 *:::::::::::::::::::ACUMULADO DE LA MATERIA POR PROMEDIO
 		      cCamNotAcM := aCamMat[j,2]
 		      IF EMPTY(cPorcen)
-
-
 
 *........................RECORRIDO POR PERIODOS
 			   nTotAcu := 0
@@ -359,7 +356,6 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 
 			   nAcuMat := VAL(cNroAprox(STR(nTotAcu/nTotNot,5,2),1))
-
 
 			   IF nNroPer == 4
 			      nAcuMat := VAL(cNroAprox(STR(nAcuPe4/nTotPe4,5,2),1))
@@ -461,6 +457,8 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 				 cNotFin := VAL(cNroAprox(STR(cNotFin,5,2),1))
 
+
+
 				 nAreFin += cNotFin
 				 IF cNotFin > 0
 				    nMatFin++
@@ -486,7 +484,6 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 		      ENDCASE
 *:::::::::::::::::::FIN CALCULO DE LA NOTA FINAL DEL A¥O DE LA MATERIA
-
 
 *:::::::::::::::::::GRABACION DEL ACUMULADO DE LA MATERIA
 		      SELECT NOT
