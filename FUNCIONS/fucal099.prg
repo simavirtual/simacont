@@ -292,6 +292,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 **********FIN CALCULO DE LA NOTA DEL AREA
 
 **********RECORRIDO POR MATERIAS
+	    nPorMat := 0
 	    FOR j := 1 TO LEN(aCamMat)
 
 		cCamNotDef := aCamMat[j,1]
@@ -302,6 +303,7 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 		 IF SUBS(cCodigoTma,3,2) == '00'
 		    LOOP
 		 ENDIF
+
 *==============FIN ANALISIS SI LA MATERIA VIENE COMO AREA
 
 *==============CALCULO DEL ACUMULADO DE LA MATERIA
@@ -357,6 +359,8 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 
 			   nAcuMat := VAL(cNroAprox(STR(nTotAcu/nTotNot,5,2),1))
 
+
+
 			   IF nNroPer == 4
 			      nAcuMat := VAL(cNroAprox(STR(nAcuPe4/nTotPe4,5,2),1))
 			   ENDIF
@@ -365,10 +369,19 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 			   IF nAcuMat # 0
 
 			      cNotMat := SUBS(&cCamNotDef,nNroPer*4-3,4)
+			      nPorMat = val(SUBS(cCamNotDef,13,3))
+
 			      IF VAL(cNotMat) > 0
 
-				 nDefAre += VAL(cNotMat)
-				 nTotMat++
+				 IF nPorMat == 100
+				    nDefAre += VAL(cNotMat)
+				    nTotMat++
+				  *ÀPor Promeedio
+				 ELSE
+				    nDefAre += VAL(cNotMat)*(nPorMat/100)
+				    nTotMat++
+				  *ÀPor Porcentaje
+				 ENDIF
 			      ENDIF
 
 			   ENDIF
@@ -564,12 +577,12 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 **********FIN RECORRIDO POR MATERIAS
 
 **********NOTA DEL AREA POR PROMEDIO
-	    IF !lPorcen
+	    IF nPorMat == 100
 	       nDefAre := nDefAre/nTotMat
 	       nAreRec := nAreRec/nTotMat
-	    ELSE
-	       nDefAre := nDefAre/nTotMat
-	       nAreRec := nAreRec/nTotMat
+	    ELSE // Por Porcentaje
+*	       wait cCodigoTma
+*	       wait nDefAre
 	    ENDIF
 
 	    IF nNroPer == 4
@@ -590,12 +603,12 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 		       cCamAre,cCamAcA,;
 		       nDefAre,@nAcuAre,@nProAre)
 
-
 	    nDefAre := cNroAprox(STR(nDefAre,5,2),1)
 	    nAreRec := cNroAprox(STR(nAreRec,5,2),1)
 	    nAcuAre := STR(nAcuAre,5,2)
 	    nProAre := STR(nProAre,4,1)
 	  *ÀConversi¢n a caracteres
+
 **********FIN CALCULO DEL PROMEDIO Y ACUMULADO DEL AREA
 
 **********CALCULO DE LA NOTA FINAL DEL A¥O AREA PROMEDIABLE
