@@ -299,6 +299,7 @@ FUNCTION Conta_402(aParam1,aParam2,aParam3)
 *===============ESTADISTICA DEL GRUPO
 		  aStdMat := {}
 		  aCodMat := {}
+
 		  TotNotGru(cNomSis,nNroPer,GRU->cCodigoGru,@aCodMat,@aStdMat)
 *===============FIN ESTADISTICA DEL GRUPO
 
@@ -307,6 +308,12 @@ FUNCTION Conta_402(aParam1,aParam2,aParam3)
 
 *:::::::::::::::::::::GRABACION DEL REGISTRO
 			FOR j := 1 TO LEN(aStdMat)
+
+			    LineaEstado('ºPERIODO: '+STR(nNroPer,2)+;
+					'ºGRUPO: '+GRU->cCodigoGru+;
+					'ºMATERIA: '+aCodMat[i,1]+;
+					'º No. '+ALLTRIM(STR(i,4))+'/'+;
+						 ALLTRIM(STR(LEN(aStdMat),4)),cNomSis)
 
 			    SELECT STD
 			    IF STD->(lRegLock(lShared,.T.))
@@ -469,6 +476,7 @@ FUNCTION Conta_402(aParam1,aParam2,aParam3)
 		 cPatSis,cMaeAct)
 
        CloseAll()
+       SET DEVICE TO SCREEN
        RETURN NIL
 *>>>>FIN MANTENIMIENTO DEL ARCHIVO
 
@@ -620,13 +628,6 @@ FUNCTION TotNotGru(cNomSis,nNroPer,cCodGru,aCodMat,aStdMat)
        NOT->(DBGOTOP())
        DO WHILE .NOT. NOT->(EOF())
 
-**********IMPRESION DE LA LINEA DE ESTADO
-	    LineaEstado('PERIODO: '+STR(nNroPer,2)+'º'+;
-			'GRUPO: '+GRU->cCodigoGru+' No. '+;
-			 NOT->(STR(RECNO(),2))+'/'+;
-			 NOT->(STR(RECCOUNT(),2)),cNomSis)
-**********FIN IMPRESION DE LA LINEA DE ESTADO
-
 **********ANALISIS SI EL ESTUDIANTE ESTA RETIRADO DEL GRUPO
 	    IF NOT->lRetGruNot
 	       SELECT NOT
@@ -675,6 +676,7 @@ FUNCTION TotNotGru(cNomSis,nNroPer,cCodGru,aCodMat,aStdMat)
 		      IF !aNotAre[i,15]   // Recuperable
 			 IndRecSiNo(cJuicio,lEvaInd,;
 				    @cSiRecu,@cNoRecu,.F.)
+
 		      ENDIF
 		    *ÀIndicadores recuperados y por recuperar
 *-------------------FIN INDICADORES DEL AREA
@@ -718,6 +720,15 @@ FUNCTION TotNotGru(cNomSis,nNroPer,cCodGru,aCodMat,aStdMat)
 
 *-------------------DETALLES DE LA MATERIA
 		      IF aNotAre[i,2] == aNotMat[j,1]
+
+
+*::::::::::::::::::::::::IMPRESION DE LA LINEA DE ESTADO
+			   LineaEstado('PERIODO: '+STR(nNroPer,2)+;
+				      'ºGRUPO: '+GRU->cCodigoGru+;
+				      'ºMATERIA:'+SUBS(aNotMat[j,5],9,4)+;
+				      'º No. '+NOT->(STR(RECNO(),2))+'/'+;
+				       NOT->(STR(RECCOUNT(),2)),cNomSis)
+*::::::::::::::::::::::::FIN IMPRESION DE LA LINEA DE ESTADO
 
 *::::::::::::::::::::::::ANALISIS DE LA MATERIA NO IMPRIMIR
 			   cCodigoTma := SUBS(aNotMat[j,5],9,4)

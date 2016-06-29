@@ -1,3 +1,10 @@
+IF nProMat > 10
+   wait 'paso'
+   wait nProMat
+   wait aTotNot[k]
+   wait aNroEst[k]
+ENDIF
+
 /*************************************************************************
 * TITULO..: MATERIAS DEL ESTUDIANTE CON INSUFICIENTE O DEFICIENTE        *
 **************************************************************************

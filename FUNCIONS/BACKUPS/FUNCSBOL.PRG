@@ -7752,16 +7752,18 @@ FUNCTION IndRecSiNo(cLogros,lEvaInd,cSiRecu,cNoRecu,lPrnAct,cSiIndi)
 ***********LOCALIZACION DE LA CLASE DEL INDICADOR
 	     cCodigoTcl := SUBS(cCodLog,1,1)
 	     IF !lLocCodigo('cCodigoCla','CLA',cCodigoTcl)
-		SET DEVICE TO SCREEN
+
 		IF lPrnAct
+		   SET DEVICE TO SCREEN
 		   cError('EL CODIGO DE LA CLASE '+cCodLog+' '+;
 			  'NO EXISTE')
+		   SET DEVICE TO PRINTER
 		ELSE
 		   cError('EL CODIGO DE LA CLASE '+cCodLog+' '+;
 			  'NO EXISTE')
 		ENDIF
 		cError(cLogros)
-		SET DEVICE TO PRINTER
+
 	     ENDIF
 ***********FIN LOCALIZACION DE LA CLASE DEL INDICADOR
 

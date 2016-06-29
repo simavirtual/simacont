@@ -647,8 +647,15 @@ FUNCTION AreMat099(lShared,cCodGru,aNotAre,aNotMat,nNroPer,nTotPer,aHayErr)
 		  REPL &cRecAre WITH;
 		       STUFF(&cRecAre,nNroPer*4-3,4,SPACE(04))
 	       ELSE
+
 		  REPL &cRecAre WITH;
 		       STUFF(&cRecAre,nNroPer*4-3,4,nAreRec)
+
+
+		  REPL &cRecAre WITH;
+		       STUFF(&cRecAre,nNroPer*4-3,4,SPACE(04))
+		//Pendiente por revisar. RECUPERACIONES AREAS
+
 	       ENDIF
 
 	       REPL &cCamAcA WITH;

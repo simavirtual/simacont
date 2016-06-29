@@ -291,7 +291,7 @@ FUNCTION Conta_411(aParam1,aParam2,aParam3)
 	  ELSE
 	     FilePrn := STR(nNroPer,1)+'stM'+cMaeAct
 	  ENDIF
-	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,CON->cOpcPrnCon,.F.,2)
+	  nOpcPrn := nPrinter_On(cNomUsr,@FilePrn,CON->cOpcPrnCon,.F.,2,,PathDoc)
 	  IF EMPTY(nOpcPrn)
 	     CloseAll(aUseDbf)
 	     RETURN NIL

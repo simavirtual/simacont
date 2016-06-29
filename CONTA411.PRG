@@ -812,7 +812,6 @@ FUNCTION EstaEst00(lShared,cNomEmp,cCodEmp,cNomSis,cAnoUsr,cNomUsr,;
 *........................NOTA DEFINITIVA DE LA MATERIA
 			   cCamNotDef := aNotMat[j,4]
 			      cNotDef := SUBS(&cCamNotDef,nNroPer*4-3,4)
-
 			      IF lPrnNum
 				 IF VAL(cNotDef) > 0
 				    IF SUBS(cCodigoTma,3,2) == '00'
