@@ -155,6 +155,7 @@ FUNCTION Conta_501(aParam1,aParam2,aParam3)
 	      *Relaci¢n de habilitantes
 */
 	  CASE nNroOpc == 3
+wait 'paso1'
 	       Cont_513(aParam1,aParam2,aParam3)
 	      *Recuperaciones Semetrales - La Salle 170
 
